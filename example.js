@@ -5,6 +5,7 @@
 
 // get library
 var MPR121 = require('./index.js');
+var ar = [0,0,0,0,0,0,0,0,0,0,0,0];
 
 // setup sensor device id 0x5A and i2c-bus 1
 var touchsensor = new MPR121(0x5A, 1);
@@ -19,17 +20,17 @@ if (touchsensor.begin()) {
 		// get touch values
 		var t = touchsensor.touched();
 
-		// prepare some result array
-		var ret = [];
-
 		// loop through pins
 		for (var i = 0; i < 12; i++) {
 			// push status into sensor
-			ret.push (touchsensor.is_touched(i));
+			if (touchsensor.is_touched(i)) {
+				if (ar[i]==0) {
+					console.log('Touched '+i);
+				}
+				ar[i] = 1;
+				// console.log(ar);
+			} else
+				ar[i] = 0;
 		}
-		
-		// return status
-		console.log(ret);
-
-	},100);
+	}, 200);
 };
