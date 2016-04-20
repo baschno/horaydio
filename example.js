@@ -22,15 +22,21 @@ if (touchsensor.begin()) {
 
 		// loop through pins
 		for (var i = 0; i < 12; i++) {
+			pinState = ar[i];
 			// push status into sensor
 			if (touchsensor.is_touched(i)) {
-				if (ar[i]==0) {
+				pinState++;
+				if (pinState==1) {
 					console.log('Touched '+i);
 				}
 				ar[i] = 1;
 				// console.log(ar);
-			} else
-				ar[i] = 0;
+			} else {
+				if (pinState>0)
+					console.log("Released "+i);
+				pinState = 0;
+			}
+			ar[i]=pinState;
 		}
 	}, 200);
 };
