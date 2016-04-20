@@ -4,7 +4,7 @@
 
 
 // get library
-var MPR121 = require('./index.js');
+var MPR121 = require('./mpr121_include.js');
 var ar = [0,0,0,0,0,0,0,0,0,0,0,0];
 
 // setup sensor device id 0x5A and i2c-bus 1
